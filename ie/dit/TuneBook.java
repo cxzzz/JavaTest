@@ -9,41 +9,57 @@ import java.io.IOException;
 
 public class TuneBook {
 
+  // arraylist for storing the tunes
   ArrayList<Tune> tunes = new ArrayList<Tune>();
 
   public TuneBook(String fileName) {
 
+    // bufferread for reading from file
     BufferedReader inputStream = null;
 
     // load tunes from file
     try {
       inputStream = new BufferedReader(new FileReader(fileName));
       String l;
+      // variable for counting the number of tunes
       int songCount = 1;
+
+      // make a temp tune for storing the tune
       Tune temp = new Tune();
+
       while ((l = inputStream.readLine()) != null) {
+
+        // when a new tune is found
         if (l.startsWith("X:")) {
+          // give it a new address space
           temp = new Tune();
           temp.setx(songCount);
+
+          // counter goes up by 1
           songCount++;
         }
 
+        // when title is found
         if (l.startsWith("T:")) {
           if (temp.getTitle() == "") {
             // set the title of the tune
             temp.setTitle(l.substring(2));
-          } else if (temp.getAlt() == ""){
-            if (l.substring(2) != "") {
-              temp.setAlt(l.substring(2));
-            }
+            // when subtitle is found
+          } else if (temp.getAlt() == "") {
+            // set the subtitle of the tune
+            temp.setAlt(l.substring(2));
           }
         }
 
+        // when notation is found
         if (!(l.startsWith("H:")) && l.contains("|")) {
+          // set the tune's notation
           temp.setNotation(l);
         }
 
-        if (l.equals("")) {
+
+        // add when a tune's notation is fully finished
+        if (l.equals("") && temp.getx() == songCount - 1) {
           tunes.add(temp);
         }
       }
@@ -60,6 +76,7 @@ public class TuneBook {
     }
   } // end of constructor
 
+  // toString method of TuneBook, print all tunes in the arraylist
   public String toString() {
     StringBuffer sb = new StringBuffer();
     for (Tune t : tunes) {
@@ -69,13 +86,18 @@ public class TuneBook {
     return sb.toString();
   }
 
+
+  // method for finding a tune from the arraylist
   public Tune findTune(String title) {
     Tune temp = new Tune();
 
     for (Tune t : tunes) {
+      // get the title of the tune
       String s = t.getTitle();
+      // if matches parameter
       if (s.contains(title)) {
         temp = t;
+        // break out since tune is found
         break;
       }
     }
@@ -90,5 +112,8 @@ public class TuneBook {
 
           Tune t = tb.findTune("Scotsman over the Border");
           t.play();
+          //
+          // Tune s = tb.findTune("zzzaq");
+          // s.play();
   }
 }

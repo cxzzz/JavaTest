@@ -46,7 +46,16 @@ public class Tune implements Player{
     return x + ", " + title + ", " + altTitle;
   }
 
+  // play the notation of the tune
   public void play() {
-    System.out.println("notation of searched tune: "+ notation);
+
+    // some error checking on finding the tune
+    if (title != "") {
+      // if tune exist
+      System.out.println("notation of played tune: "+ notation);
+    } else {
+      // if tune does not exist
+      System.out.println("Tune not found");
+    }
   }
 }
