@@ -39,7 +39,7 @@ public class Tune {
   }
 
   public void setNotation(String s) {
-    notation = s;
+    notation += s;
   }
 
   public String toString() {

@@ -36,10 +36,34 @@ public class TuneBook {
           }
         }
 
-        if (l.startsWith)
+        if (!(l.startsWith("H:") && l.contains("|")) {
+          temp.setNotation(l);
+        }
+
+        if (l.equals("")) {
+          tunes.add(temp);
+        }
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    } finally {
+      if (inputStream != null) {
+        try {
+          inputStream.close();
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
       }
     }
-  }
+  } // end of constructor
 
+  public String toString() {
+    StringBuffer sb = new StringBuffer();
+    for (Tune t : tunes) {
+      sb.append(t.getx() + ", " t.getTitle() + ", " + t.getAlt() + ", " + t.getNotation() + "\n");
+    }
+    
+    return sb.toString();
+  }
 
 }
