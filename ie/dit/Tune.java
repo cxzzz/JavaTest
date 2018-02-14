@@ -4,9 +4,12 @@ public class Tune implements Player{
 
   // private fields of tune class
   private int x;
-  private String title = "";
+  private String title;
   private String altTitle = "";
-  private String notation = "";
+  private String notation;
+
+  Tune() {
+  }
 
 
   // Accessors
@@ -43,7 +46,15 @@ public class Tune implements Player{
   }
 
   public String toString() {
-    return x + ", " + title + ", " + altTitle;
+    String ret;
+
+    ret = x + ", " + title;
+
+    if (altTitle != null) {
+      ret +=  ", " + altTitle;
+    }
+
+    return ret;
   }
 
   // play the notation of the tune

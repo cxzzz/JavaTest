@@ -41,7 +41,7 @@ public class TuneBook {
 
         // when title is found
         if (l.startsWith("T:")) {
-          if (temp.getTitle() == "") {
+          if (temp.getTitle() == null) {
             // set the title of the tune
             temp.setTitle(l.substring(2));
             // when subtitle is found
@@ -59,7 +59,7 @@ public class TuneBook {
 
 
         // add when a tune's notation is fully finished
-        if (l.equals("") && temp.getx() == songCount - 1) {
+        if (l.equals("") && temp.getTitle() != null) {
           tunes.add(temp);
         }
       }
@@ -80,7 +80,7 @@ public class TuneBook {
   public String toString() {
     StringBuffer sb = new StringBuffer();
     for (Tune t : tunes) {
-      sb.append(t.getx() + ", " + t.getTitle() + ", " + t.getAlt() + ", " + t.getNotation() + "\n");
+      sb.append(t.getx() + ", " + t.getTitle() + ", " + t.getAlt() + "\n");
     }
 
     return sb.toString();
