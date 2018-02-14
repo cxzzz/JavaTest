@@ -9,16 +9,16 @@ public class TuneBook {
 
   ArrayList<Tune> tunes = new ArrayList<Tune>();
 
-  public TuneBook(String str) {
+  public TuneBook(String fileName) {
 
     BufferedReader inputStream = null;
 
     // load tunes from file
     try {
-      inputStream = new BufferedReader(new FileReader("hnj0.abc"));
+      inputStream = new BufferedReader(new FileReader(fileName));
       String l;
       int counter = 0;
-      while (l = inputStream.readLine()) != null) {
+      while ((l = inputStream.readLine()) != EOF) {
         if (l.startsWith("X:")) {
           Tune temp = new Tune();
           temp.setx(l.subString(2));
@@ -36,7 +36,7 @@ public class TuneBook {
           }
         }
 
-        if (!(l.startsWith("H:") && l.contains("|")) {
+        if (!(l.startsWith("H:")) && l.contains("|")) {
           temp.setNotation(l);
         }
 
@@ -60,10 +60,31 @@ public class TuneBook {
   public String toString() {
     StringBuffer sb = new StringBuffer();
     for (Tune t : tunes) {
-      sb.append(t.getx() + ", " t.getTitle() + ", " + t.getAlt() + ", " + t.getNotation() + "\n");
+      sb.append(t.getx() + ", " + t.getTitle() + ", " + t.getAlt() + ", " + t.getNotation() + "\n");
     }
-    
+
     return sb.toString();
   }
 
+  public Tune findTune(String title) {
+    Tune temp = new Tune();
+
+    for (Tune t : tunes) {
+      if (t.getTitle().contains(title)) {
+        temp = t;
+        break;
+      }
+    }
+
+    return Tune;
+  }
+
+  public static void main(String[] args)
+  {
+          TuneBook tb = new TuneBook("hnj0.abc");
+          System.out.println(tb);
+
+          Tune t = tb.findTune("Scotsman over the Border");
+          t.play();
+  }
 }

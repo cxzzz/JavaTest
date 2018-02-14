@@ -1,6 +1,6 @@
 package ie.dit;
 
-public class Tune {
+public class Tune implements Player {
 
   // private fields of tune class
   private int x;
@@ -43,6 +43,6 @@ public class Tune {
   }
 
   public String toString() {
-    return x + ", " + title + ", " altTitle;
+    return x + ", " + title + ", " + altTitle;
   }
 }
