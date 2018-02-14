@@ -1,12 +1,12 @@
 package ie.dit;
 
-public class Tune implements Player {
+public class Tune implements Player{
 
   // private fields of tune class
   private int x;
-  private String title;
-  private String altTitle;
-  private String notation;
+  private String title = "";
+  private String altTitle = "";
+  private String notation = "";
 
 
   // Accessors
@@ -27,7 +27,7 @@ public class Tune implements Player {
   }
 
   public String getAlt() {
-    return altTitle;
+      return altTitle;
   }
 
   public void setAlt(String s) {
@@ -44,5 +44,9 @@ public class Tune implements Player {
 
   public String toString() {
     return x + ", " + title + ", " + altTitle;
+  }
+
+  public void play() {
+    System.out.println("notation of searched tune: "+ notation);
   }
 }

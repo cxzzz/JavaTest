@@ -1,3 +1,5 @@
+package ie.dit;
+
 import java.util.ArrayList;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -17,22 +19,23 @@ public class TuneBook {
     try {
       inputStream = new BufferedReader(new FileReader(fileName));
       String l;
-      int counter = 0;
-      while ((l = inputStream.readLine()) != EOF) {
+      int songCount = 1;
+      Tune temp = new Tune();
+      while ((l = inputStream.readLine()) != null) {
         if (l.startsWith("X:")) {
-          Tune temp = new Tune();
-          temp.setx(l.subString(2));
+          temp = new Tune();
+          temp.setx(songCount);
+          songCount++;
         }
 
         if (l.startsWith("T:")) {
-          if (counter == 0) {
+          if (temp.getTitle() == "") {
             // set the title of the tune
-            temp.setTitle(l.subString(2));
-            counter++;
-          } else if (counter == 1) {
-            temp.setAlt(l.subString(2));
-          } else {
-            continue;
+            temp.setTitle(l.substring(2));
+          } else if (temp.getAlt() == ""){
+            if (l.substring(2) != "") {
+              temp.setAlt(l.substring(2));
+            }
           }
         }
 
@@ -70,13 +73,14 @@ public class TuneBook {
     Tune temp = new Tune();
 
     for (Tune t : tunes) {
-      if (t.getTitle().contains(title)) {
+      String s = t.getTitle();
+      if (s.contains(title)) {
         temp = t;
         break;
       }
     }
 
-    return Tune;
+    return temp;
   }
 
   public static void main(String[] args)
